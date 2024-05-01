@@ -3,7 +3,7 @@
 * Releases
   * See most recent [public build][snap]
   * [change log][changelog]
-  * API is subject to change 
+  * API is subject to change
 
 * Documentation
   * [Project Website][misk]
