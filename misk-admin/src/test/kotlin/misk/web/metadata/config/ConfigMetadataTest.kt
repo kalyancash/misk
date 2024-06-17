@@ -16,7 +16,7 @@ import wisp.deployment.TESTING
 import kotlin.test.assertEquals
 
 @MiskTest(startService = true)
-class ConfigMetadataActionTest {
+class ConfigMetadataTest {
   @MiskTestModule
   val module = MetadataTestingModule()
 
