@@ -5,7 +5,7 @@ import misk.jvm.JvmManagementFactoryModule
 import misk.web.dashboard.AdminDashboard
 import misk.web.dashboard.AdminDashboardAccess
 import misk.web.dashboard.DashboardModule
-import misk.web.metadata.all.MetadataTabAction
+import misk.web.metadata.all.MetadataTabIndexAction
 import misk.web.metadata.config.ConfigMetadataAction.ConfigTabMode.SAFE
 import misk.web.metadata.jvm.JvmMetadata
 import misk.web.metadata.jvm.JvmMetadataProvider
@@ -23,18 +23,19 @@ class ConfigDashboardTabModule @JvmOverloads constructor(
   private val mode: ConfigMetadataAction.ConfigTabMode = SAFE,
 ) : KAbstractModule() {
   override fun configure() {
-    install(JvmManagementFactoryModule())
-
     bind<ConfigMetadataAction.ConfigTabMode>().toInstance(mode)
     bind<ConfigMetadata>().toProvider(ConfigMetadataProvider())
-    bind<JvmMetadata>().toProvider(JvmMetadataProvider())
 
     install(
       DashboardModule.createMenuLink<AdminDashboard, AdminDashboardAccess>(
         label = "Config",
-        url = MetadataTabAction.PATH + "?q=config",
+        url = MetadataTabIndexAction.PATH + "?q=config",
         category = "Container Admin",
       )
     )
+
+    // TODO Maybe split this out into its own module? Don't tightly couple with config anymore
+    bind<JvmMetadata>().toProvider(JvmMetadataProvider())
+    install(JvmManagementFactoryModule())
   }
 }
